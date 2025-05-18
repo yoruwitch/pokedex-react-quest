@@ -1,13 +1,20 @@
-import './App.css'
+import { useState } from "react";
+import { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "./styles/Theme";
+
+import Header from "./components/Header";
+import GlobalStyle from "./GlobalStyle";
 
 function App() {
+    const [isDark, setIsDark] = useState(false);
+    const toggleTheme = () => setIsDark((prev) => !prev);
 
-
-  return (
-    <>
-      
-    </>
-  )
+    return (
+        <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+            <GlobalStyle />
+            <Header onToggleTheme={toggleTheme} />
+        </ThemeProvider>
+    );
 }
 
-export default App
+export default App;
