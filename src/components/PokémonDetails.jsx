@@ -102,7 +102,7 @@ const Button = styled.button`
     }
 `;
 
-const PokemonDetails = () => {
+const PokemonDetails = ({toggleTheme, isDark}) => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [pokemon, setPokemon] = useState(null);
@@ -146,7 +146,7 @@ const PokemonDetails = () => {
 
     return (
         <>
-            <Header />
+            <Header onToggleTheme={toggleTheme} isDarkTheme={isDark} />
             <Container>
                 <Button onClick={() => navigate("/")}>
                     ← Voltar para a lista

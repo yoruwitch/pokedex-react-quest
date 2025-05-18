@@ -19,9 +19,19 @@ function ThemedApp() {
                 <Routes>
                     <Route
                         path="/"
-                        element={<App toggleTheme={toggleTheme} isDark={isDark} />}
+                        element={
+                            <App toggleTheme={toggleTheme} isDark={isDark} />
+                        }
                     />
-                    <Route path="/pokemon/:id" element={<PokemonDetails />} />
+                    <Route
+                        path="/pokemon/:id"
+                        element={
+                            <PokemonDetails
+                                toggleTheme={toggleTheme}
+                                isDark={isDark}
+                            />
+                        }
+                    />
                 </Routes>
             </BrowserRouter>
         </ThemeProvider>
