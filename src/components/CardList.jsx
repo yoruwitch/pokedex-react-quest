@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getPokemons } from "../services/service";
 import CardItem from "./CardItem";
 import styled from "styled-components";
+import LoadMoreButton from "./LoadMoreButton";
 
 const CardListContainer = styled.div`
     padding: 1.5rem;
@@ -12,20 +13,28 @@ const CardListContainer = styled.div`
     flex-direction: row;
     width: 100%;
 `;
-const Button = styled.button`
-    background-color: ${({ theme }) => theme.subtleText || theme.text};
-`;
+
+const LIMIT = 10; // define o limite fixo aqui
 
 const CardList = () => {
     const [pokemons, setPokemons] = useState([]);
+    const [offset, setOffset] = useState(0);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         async function fetchPokemons() {
-            const data = await getPokemons(); // usa seu serviço, retorna lista de pokémons
-            setPokemons(data);
+            setLoading(true);
+            const newPokemons = await getPokemons(LIMIT, offset);
+            setPokemons((prev) => [...prev, ...newPokemons]);
+            setLoading(false);
         }
+
         fetchPokemons();
-    }, []);
+    }, [offset]);
+
+    const handleLoadMore = () => {
+        setOffset((prev) => prev + LIMIT);
+    };
 
     return (
         <>
@@ -38,8 +47,9 @@ const CardList = () => {
                         image={pokemon.image}
                     />
                 ))}
+                {loading && <p>Loading more Pokémon...</p>}
             </CardListContainer>
-            <button>Load more</button>
+            <LoadMoreButton onLoadMore={handleLoadMore} />
         </>
     );
 };

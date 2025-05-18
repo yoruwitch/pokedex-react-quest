@@ -10,7 +10,7 @@ const Container = styled.header`
     background: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.text};
     border-bottom: 2px solid ${({ theme }) => theme.text};
-    margin: 5px;
+    margin: 15px;
     border-radius: 8px;
     transition: background 0.3s ease, color 0.3s ease;
 `;

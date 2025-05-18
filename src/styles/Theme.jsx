@@ -5,6 +5,7 @@ export const lightTheme = {
     cardText: "#1f1f1f",
     accent: "#3861A3",
     highlight: "#FFCC01",
+   
 };
 
 export const darkTheme = {
