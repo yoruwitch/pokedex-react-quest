@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const Card = styled.div`
@@ -15,6 +14,7 @@ const Card = styled.div`
     transition: transform 0.2s ease;
     width: 20%;
     margin: 10px;
+    border: 1px solid ${({ theme }) => theme.highlight};
     &:hover {
         transform: scale(1.03);
     }
@@ -26,6 +26,8 @@ const Image = styled.img`
 `;
 
 const Name = styled.h3`
+    color: ${({ theme }) => theme.accent};
+    margin-top: 0.5rem;
     margin: 0.5rem 0 0.2rem;
     font-size: 1.1rem;
     text-transform: capitalize;

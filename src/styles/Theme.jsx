@@ -1,14 +1,17 @@
 export const lightTheme = {
-    name: "light",
-    background: "linear-gradient(to right, #ffffff, #e3f2fd)", // branco → azul claro
-    text: "#1a237e", // azul escuro
-    cardBackground: "#ffffff", // adiciona essa
-    
+    background: "#f6f6f6",
+    text: "#1f1f1f",
+    cardBackground: "#ffffff",
+    cardText: "#1f1f1f",
+    accent: "#3861A3",
+    highlight: "#FFCC01",
 };
 
 export const darkTheme = {
-    name: "dark",
-    background: "linear-gradient(to right, #0d1117, #1b1f3b)", // azul petróleo
+    background: "#1A273F",
     text: "#f1f1f1",
-    cardBackground: "#2b2b2b", // cor mais forte pro fundo do card
+    cardBackground: "#2C3E60",
+    cardText: "#ffffff",
+    accent: "#FFCC01",
+    highlight: "#3861A3",
 };
