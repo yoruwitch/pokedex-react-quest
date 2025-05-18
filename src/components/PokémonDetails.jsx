@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
 import styled from "styled-components";
 import typeColors from "../assets/typeColors";
 import Header from "./Header";
+import { getPokemonDetails } from "../services/service";
 
 const Container = styled.div`
     display: flex;
@@ -16,6 +16,23 @@ const Container = styled.div`
     color: ${({ theme }) => theme.cardText};
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+`;
+
+const TopSection = styled.div`
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+`;
+
+const LeftColumn = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+`;
+
+const RightColumn = styled.div`
+    flex: 1;
 `;
 
 const HeaderPokemonDetails = styled.div`
@@ -61,6 +78,42 @@ const SectionTitle = styled.h2`
     margin-bottom: 1rem;
 `;
 
+
+const MovesList = styled.ul`
+    list-style: none;
+    padding: 0.3rem 0.5rem;
+    margin: 0;
+    max-height: 140px;
+    overflow-y: auto;
+    border: 1px solid ${({ theme }) => theme.border || theme.highlight};
+    border-radius: 8px;
+    background-color: ${({ theme }) => theme.background};
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: ${({ theme }) => theme.highlight};
+        border-radius: 10px;
+    }
+    scrollbar-width: thin;
+    scrollbar-color: ${({ theme }) => theme.highlight} transparent;
+`;
+
+const MoveItem = styled.li`
+    text-transform: capitalize;
+    font-size: 0.95rem;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid ${({ theme }) => theme.border || theme.highlight};
+
+    &:last-child {
+        border-bottom: none;
+    }
+`;
+
 const List = styled.ul`
     list-style: none;
     padding: 0;
@@ -84,6 +137,22 @@ const AbilityDescription = styled.p`
     font-size: 0.85rem;
     color: ${({ theme }) => theme.subtleText || theme.text};
     margin-top: 0.3rem;
+    max-height: 100px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: ${({ theme }) => theme.highlight};
+        border-radius: 10px;
+    }
+    scrollbar-width: thin;
+    scrollbar-color: ${({ theme }) => theme.highlight} transparent;
 `;
 
 const Button = styled.button`
@@ -102,7 +171,7 @@ const Button = styled.button`
     }
 `;
 
-const PokemonDetails = ({toggleTheme, isDark}) => {
+const PokemonDetails = ({ toggleTheme, isDark }) => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [pokemon, setPokemon] = useState(null);
@@ -113,26 +182,11 @@ const PokemonDetails = ({toggleTheme, isDark}) => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const res = await axios.get(
-                    `https://pokeapi.co/api/v2/pokemon/${id}`
-                );
-                setPokemon(res.data);
-
-                const descs = {};
-                await Promise.all(
-                    res.data.abilities.map(async ({ ability }) => {
-                        const abRes = await axios.get(ability.url);
-                        const enEntry = abRes.data.effect_entries.find(
-                            (entry) => entry.language.name === "en"
-                        );
-                        descs[ability.name] =
-                            enEntry?.effect || "No description available.";
-                    })
-                );
-
-                setAbilitiesDesc(descs);
+                const { pokemon, abilitiesDesc } = await getPokemonDetails(id);
+                setPokemon(pokemon);
+                setAbilitiesDesc(abilitiesDesc);
             } catch (err) {
-                console.error("Error:", err);
+                console.error("Failed to load Pokémon details:", err);
             } finally {
                 setLoading(false);
             }
@@ -141,43 +195,47 @@ const PokemonDetails = ({toggleTheme, isDark}) => {
         fetchData();
     }, [id]);
 
-    if (loading) return <Container>Carregando Pokémon...</Container>;
-    if (!pokemon) return <Container>Pokémon não encontrado.</Container>;
+    if (loading) return <Container>Loading Pokémon...</Container>;
+    if (!pokemon) return <Container>Pokémon not found.</Container>;
 
     return (
         <>
             <Header onToggleTheme={toggleTheme} isDarkTheme={isDark} />
             <Container>
                 <Button onClick={() => navigate("/")}>
-                    ← Voltar para a lista
+                    ← Go back to the Pokédex
                 </Button>
 
-                <HeaderPokemonDetails>
-                    <PokemonImage
-                        src={
-                            pokemon.sprites.other["official-artwork"]
-                                .front_default
-                        }
-                        alt={pokemon.name}
-                    />
-                    <Name>{pokemon.name}</Name>
-                    <TypeList>
-                        {pokemon.types.map(({ type }) => (
-                            <TypeBadge key={type.name} type={type.name}>
-                                {type.name}
-                            </TypeBadge>
-                        ))}
-                    </TypeList>
-                </HeaderPokemonDetails>
+                <TopSection>
+                    <LeftColumn>
+                        <HeaderPokemonDetails>
+                            <PokemonImage
+                                src={
+                                    pokemon.sprites.other["official-artwork"]
+                                        .front_default
+                                }
+                                alt={pokemon.name}
+                            />
+                            <Name>{pokemon.name}</Name>
+                            <TypeList>
+                                {pokemon.types.map(({ type }) => (
+                                    <TypeBadge key={type.name} type={type.name}>
+                                        {type.name}
+                                    </TypeBadge>
+                                ))}
+                            </TypeList>
+                        </HeaderPokemonDetails>
+                    </LeftColumn>
 
-                <Section>
-                    <SectionTitle>Moves</SectionTitle>
-                    <List>
-                        {pokemon.moves.slice(0, 10).map(({ move }) => (
-                            <ListItem key={move.name}>{move.name}</ListItem>
-                        ))}
-                    </List>
-                </Section>
+                    <RightColumn>
+                        <SectionTitle>Moves</SectionTitle>
+                        <MovesList>
+                            {pokemon.moves.slice(0, 4).map(({ move }) => (
+                                <MoveItem key={move.name}>{move.name}</MoveItem>
+                            ))}
+                        </MovesList>
+                    </RightColumn>
+                </TopSection>
 
                 <Section>
                     <SectionTitle>Abilities</SectionTitle>

@@ -7,7 +7,7 @@ import App from "./App";
 import PokemonDetails from "./components/PokémonDetails";
 import { useState } from "react";
 
-// Componente wrapper para controle de tema e rotas
+
 function ThemedApp() {
     const [isDark, setIsDark] = useState(false);
     const toggleTheme = () => setIsDark((prev) => !prev);

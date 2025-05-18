@@ -1,14 +1,14 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-  /*! normalize + reset adaptado */
 
-  /* Box sizing reset */
+
+
   *, *::before, *::after {
     box-sizing: border-box;
   }
 
-  /* Remove margin e padding padrão */
+  
   body, h1, h2, h3, h4, h5, h6, p, blockquote,
   pre, figure, hr, dl, dd, ul, ol, menu, li,
   fieldset, legend, button, input, textarea, select {
@@ -16,12 +16,11 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 
-  /* Remover lista padrão */
+  
   ul, ol, menu {
     list-style: none;
   }
-
-  /* Set base font */
+ 
   html {
     line-height: 1.5;
     -webkit-text-size-adjust: 100%;
@@ -68,7 +67,6 @@ const GlobalStyle = createGlobalStyle`
     resize: vertical;
   }
 
-  /* Remove highlight azul ao clicar em links no mobile */
   a, button {
     -webkit-tap-highlight-color: transparent;
   }
