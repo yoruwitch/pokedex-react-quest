@@ -6,7 +6,7 @@ const Card = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: ${({ theme }) => theme.card};
+    background-color: ${({ theme }) => theme.cardBackground};
     color: ${({ theme }) => theme.text};
     border-radius: 12px;
     padding: 1rem;
@@ -15,7 +15,6 @@ const Card = styled.div`
     transition: transform 0.2s ease;
     width: 20%;
     margin: 10px;
-
     &:hover {
         transform: scale(1.03);
     }

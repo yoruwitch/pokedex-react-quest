@@ -12,6 +12,9 @@ const CardListContainer = styled.div`
     flex-direction: row;
     width: 100%;
 `;
+const Button = styled.button`
+    background-color: ${({ theme }) => theme.subtleText || theme.text};
+`;
 
 const CardList = () => {
     const [pokemons, setPokemons] = useState([]);
@@ -25,16 +28,19 @@ const CardList = () => {
     }, []);
 
     return (
-        <CardListContainer>
-            {pokemons.map((pokemon) => (
-                <CardItem
-                    key={pokemon.id}
-                    id={pokemon.id}
-                    name={pokemon.name}
-                    image={pokemon.image}
-                />
-            ))}
-        </CardListContainer>
+        <>
+            <CardListContainer>
+                {pokemons.map((pokemon) => (
+                    <CardItem
+                        key={pokemon.id}
+                        id={pokemon.id}
+                        name={pokemon.name}
+                        image={pokemon.image}
+                    />
+                ))}
+            </CardListContainer>
+            <button>Load more</button>
+        </>
     );
 };
 
