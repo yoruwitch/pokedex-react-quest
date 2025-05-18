@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Card = styled.div`
     display: flex;
@@ -40,8 +41,9 @@ const Id = styled.p`
 `;
 
 const CardItem = ({ name, id, image }) => {
+    const navigate = useNavigate();
     return (
-        <Card>
+        <Card onClick={() => navigate(`/pokemon/${id}`)}>
             <Image src={image} alt={name} />
             <Name>{name}</Name>
             <Id>#{id.toString().padStart(3, "0")}</Id>
