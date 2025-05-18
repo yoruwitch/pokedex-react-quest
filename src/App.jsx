@@ -12,7 +12,7 @@ function App() {
     return (
         <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
             <GlobalStyle />
-            <Header onToggleTheme={toggleTheme} />
+            <Header onToggleTheme={toggleTheme} isDarkTheme={isDark} />
         </ThemeProvider>
     );
 }
