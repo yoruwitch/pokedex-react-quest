@@ -18,11 +18,11 @@ Criar uma interface interativa e estilizada para explorar os Pokémon 🐉, com 
 
 ### 📋 Status do Projeto:
 - ✅ Configuração inicial do projeto com Vite.
-- 🚧 Implementação das rotas com React Router.
-- 🚧 Criação do tema escuro utilizando Context API.
-- 🚧 Estilização dos componentes com Styled Components.
-- 🚧 Integração com a PokéAPI.
-- 🚧 Testes e ajustes finais.
+- ✅ Implementação das rotas com React Router.
+- ✅ Criação do tema escuro utilizando Context API.
+- ✅ Estilização dos componentes com Styled Components.
+- ✅ Integração com a PokéAPI.
+
 
 ### 🖥️ Como Rodar o Projeto:
 1. Clone o repositório 📂.
