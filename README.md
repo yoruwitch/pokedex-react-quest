@@ -1,4 +1,4 @@
-# Pokédex API - QUEST
+# Pokédex - QUEST
 
 ## Sobre o Projeto 🚀
 
