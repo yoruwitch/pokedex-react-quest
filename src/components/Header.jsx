@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import logo from './src/assets/images/International_Pokémon_logo.svg';
 
 const Container = styled.header`
     display: flex;
@@ -28,7 +27,7 @@ const Header = ({ onToggleTheme, isDarkTheme }) => {
     return (
         <Container>
             <Logo
-                src={logo}
+                src={'src/assets/images/International_Pokémon_logo.svg''}
                 alt="Pokémon logo"
             />
             <h1>Pokédex</h1>
