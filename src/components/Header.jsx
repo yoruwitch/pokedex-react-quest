@@ -27,7 +27,7 @@ const Header = ({ onToggleTheme, isDarkTheme }) => {
     return (
         <Container>
             <Logo
-                src={"/src/assets/images/International_Pokémon_logo.svg"}
+                src={"./src/assets/images/International_Pokémon_logo.svg"}
                 alt="Pokémon logo"
             />
             <h1>Pokédex</h1>
