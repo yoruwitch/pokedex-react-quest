@@ -2,7 +2,7 @@
 
 ## Sobre o Projeto 🚀
 
-Este projeto é uma Pokédex 🐾 que está sendo desenvolvida como parte dos estudos no curso **DevQuest**, atendendo aos requisitos da quest proposta. A aplicação está sendo criada utilizando **React** com **JavaScript**, com o objetivo de praticar e consolidar conhecimentos em desenvolvimento web moderno.
+Este projeto é uma Pokédex 🐾 que foi desenvolvida como parte dos estudos no curso **DevQuest**, atendendo aos requisitos da quest proposta. A aplicação está sendo criada utilizando **React** com **JavaScript**, com o objetivo de praticar e consolidar conhecimentos em desenvolvimento web moderno.
 
 ### 🛠️ Tecnologias e Ferramentas Utilizadas:
 - **React Router**: Para gerenciar as rotas da aplicação 🗺️.
